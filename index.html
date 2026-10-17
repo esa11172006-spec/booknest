@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог книг — BookNest</title>
+</head>
+<body>
+  <header>
+    <a href="index.html">BookNest</a>
+    <nav aria-label="Основная навигация">
+      <ul>
+        <li><a href="index.html" aria-current="page">Каталог</a></li>
+        <li><a href="loan.html">Выдача</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Каталог книг</h1>
+
+    <form action="index.html" method="get" role="search">
+      <fieldset>
+        <legend>Фильтры</legend>
+        <label for="search">Поиск</label>
+        <input type="search" id="search" name="q" minlength="2" placeholder="Название или автор">
+        <label for="genre">Жанр</label>
+        <select id="genre" name="genre">
+          <option value="">Все жанры</option>
+          <option value="fantasy">Фэнтези</option>
+          <option value="sci-fi">Научная фантастика</option>
+          <option value="detective">Детектив</option>
+          <option value="classic">Классика</option>
+        </select>
+        <label for="sort">Сортировка</label>
+        <select id="sort" name="sort">
+          <option value="title">По названию (А–Я)</option>
+          <option value="year">По году (новые сначала)</option>
+          <option value="rating">По рейтингу</option>
+        </select>
+        <input type="checkbox" id="available" name="available" value="1">
+        <label for="available">Только доступные</label>
+        <button type="submit">Применить</button>
+        <button type="reset">Сбросить</button>
+      </fieldset>
+    </form>
+
+    <section aria-labelledby="results-heading">
+      <h2 id="results-heading">Найдено книг: 6</h2>
+      
+      <article>
+        <figure>
+          <img src="images/cover-1.svg" alt="Обложка книги «Мастер и Маргарита»" width="300" height="450">
+          <figcaption>Издание 2020 года</figcaption>
+        </figure>
+        <h3><a href="book.html">Мастер и Маргарита</a></h3>
+        <p>Автор: Михаил Булгаков</p>
+        <p>Жанр: Классика</p>
+        <p>Год: <time datetime="2020">2020</time></p>
+        <a href="loan.html">Взять книгу</a>
+      </article>
+
+      <article>
+        <figure>
+          <img src="images/cover-2.svg" alt="Обложка книги «1984»" width="300" height="450">
+        </figure>
+        <h3><a href="book.html">1984</a></h3>
+        <p>Автор: Джордж Оруэлл</p>
+        <p>Жанр: Антиутопия</p>
+        <p>Год: <time datetime="1949">1949</time></p>
+        <a href="loan.html">Взять книгу</a>
+      </article>
+      
+      <!-- Ещё 4 книги -->
+      <article>
+        <figure><img src="images/cover-3.svg" alt="Обложка 3" width="300" height="450"></figure>
+        <h3><a href="book.html">Дюна</a></h3>
+        <p>Автор: Фрэнк Герберт</p>
+        <a href="loan.html">Взять книгу</a>
+      </article>
+      <article>
+        <figure><img src="images/cover-4.svg" alt="Обложка 4" width="300" height="450"></figure>
+        <h3><a href="book.html">Убийство в Восточном экспрессе</a></h3>
+        <p>Автор: Агата Кристи</p>
+        <a href="loan.html">Взять книгу</a>
+      </article>
+      <article>
+        <figure><img src="images/cover-5.svg" alt="Обложка 5" width="300" height="450"></figure>
+        <h3><a href="book.html">Гарри Поттер</a></h3>
+        <p>Автор: Дж. К. Роулинг</p>
+        <a href="loan.html">Взять книгу</a>
+      </article>
+      <article>
+        <figure><img src="images/cover-6.svg" alt="Обложка 6" width="300" height="450"></figure>
+        <h3><a href="book.html">Война и мир</a></h3>
+        <p>Автор: Лев Толстой</p>
+        <a href="loan.html">Взять книгу</a>
+      </article>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 BookNest — книжный клуб университета</p>
+  </footer>
+</body>
+</html>

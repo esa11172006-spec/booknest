@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Выдача книги — BookNest</title>
+</head>
+<body>
+  <header>
+    <a href="index.html">BookNest</a>
+    <nav aria-label="Основная навигация">
+      <ul>
+        <li><a href="index.html">Каталог</a></li>
+        <li><a href="loan.html" aria-current="page">Выдача</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Оформление выдачи книги</h1>
+
+    <form action="loan.html" method="post">
+      <fieldset>
+        <legend>Читатель</legend>
+        
+        <label for="reader-name">Имя и фамилия</label>
+        <input type="text" id="reader-name" name="reader_name" required minlength="2">
+        
+        <label for="reader-email">Email</label>
+        <input type="email" id="reader-email" name="reader_email" required>
+        
+        <label for="reader-phone">Телефон</label>
+        <input type="tel" id="reader-phone" name="reader_phone" required pattern="\+?[0-9\s\-\(\)]{10,20}">
+      </fieldset>
+
+      <fieldset>
+        <legend>Книга и срок</legend>
+        
+        <label for="book-id">Номер книги</label>
+        <input type="number" id="book-id" name="book_id" required min="1" max="99999">
+        
+        <label for="loan-date">Дата выдачи</label>
+        <input type="date" id="loan-date" name="loan_date" required>
+        
+        <label for="return-date">Планируемая дата возврата</label>
+        <input type="date" id="return-date" name="return_date" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Дополнительно</legend>
+        
+        <label for="loan-type">Тип выдачи</label>
+        <select id="loan-type" name="loan_type" required>
+          <option value="">Выберите тип</option>
+          <option value="standard">Стандартная (14 дней)</option>
+          <option value="extended">Продлённая (30 дней)</option>
+        </select>
+        
+        <label for="loan-comment">Комментарий</label>
+        <textarea id="loan-comment" name="comment" rows="4" maxlength="500"></textarea>
+        
+        <input type="checkbox" id="agree" name="agree" value="1" required>
+        <label for="agree">Согласен с правилами библиотеки</label>
+      </fieldset>
+
+      <button type="submit">Оформить выдачу</button>
+      <button type="reset">Очистить</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2024 BookNest — книжный клуб университета</p>
+  </footer>
+</body>
+</html>

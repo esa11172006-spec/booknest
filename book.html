@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мастер и Маргарита — BookNest</title>
+</head>
+<body>
+  <header>
+    <a href="index.html">BookNest</a>
+    <nav aria-label="Основная навигация">
+      <ul>
+        <li><a href="index.html">Каталог</a></li>
+        <li><a href="loan.html">Выдача</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <nav aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="index.html">Каталог</a></li>
+      <li aria-current="page">Мастер и Маргарита</li>
+    </ol>
+  </nav>
+
+  <main>
+    <article>
+      <h1>Мастер и Маргарита</h1>
+
+      <figure>
+        <img src="images/cover-1.svg" alt="Обложка книги «Мастер и Маргарита»" width="300" height="450">
+        <figcaption>Издание 2020 года</figcaption>
+      </figure>
+
+      <section aria-labelledby="chars-heading">
+        <h2 id="chars-heading">Характеристики</h2>
+        <dl>
+          <dt>Автор</dt>
+          <dd>Михаил Булгаков</dd>
+          <dt>Год издания</dt>
+          <dd><time datetime="2020">2020</time></dd>
+          <dt>Жанр</dt>
+          <dd>Классика, мистика</dd>
+          <dt>Страниц</dt>
+          <dd>480</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="desc-heading">
+        <h2 id="desc-heading">Описание</h2>
+        <p>Роман Михаила Булгакова, над которым автор работал до последнего дня жизни.</p>
+      </section>
+
+      <aside aria-labelledby="similar-heading">
+        <h2 id="similar-heading">Похожие книги</h2>
+        <ul>
+          <li><a href="book.html">Собачье сердце</a></li>
+          <li><a href="book.html">Белая гвардия</a></li>
+        </ul>
+      </aside>
+
+      <section aria-labelledby="reviews-heading">
+        <h2 id="reviews-heading">Отзывы</h2>
+        <article>
+          <h3>Анна</h3>
+          <p><time datetime="2024-03-15">15 марта 2024</time></p>
+          <p>Одна из самых любимых книг. Перечитываю каждый год.</p>
+        </article>
+
+        <h3>Оставить отзыв</h3>
+        <form action="book.html" method="post">
+          <fieldset>
+            <legend>Ваш отзыв</legend>
+            
+            <label for="review-name">Имя</label>
+            <input type="text" id="review-name" name="name" required maxlength="50">
+            
+            <label for="review-email">Email</label>
+            <input type="email" id="review-email" name="email" required>
+            
+            <label for="review-rating">Оценка</label>
+            <select id="review-rating" name="rating" required>
+              <option value="">Выберите оценку</option>
+              <option value="5">5 — отлично</option>
+              <option value="4">4 — хорошо</option>
+              <option value="3">3 — нормально</option>
+            </select>
+            
+            <label for="review-text">Текст отзыва</label>
+            <textarea id="review-text" name="text" rows="5" required minlength="10"></textarea>
+            
+            <button type="submit">Отправить</button>
+          </fieldset>
+        </form>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2024 BookNest — книжный клуб университета</p>
+  </footer>
+</body>
+</html>
