@@ -1,0 +1,81 @@
+/* --- Стили для JS-каталога --- */
+.main {
+  padding: var(--space-4, 24px);
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.filters-form fieldset {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group input[type="search"],
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Сетка */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Карточка */
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+}
+
+.card__title { margin: 0 0 8px 0; font-size: 1.2rem; }
+.card__author { margin: 0 0 8px 0; color: #555; }
+.card__meta { margin: 0 0 16px 0; font-size: 0.9rem; color: #777; }
+
+/* Кнопка прижата к низу */
+.card .button {
+  margin-top: auto; 
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: #0056b3;
+  color: white;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.card .button:hover { background: #004494; }
+.card .button--active { background: #28a745; }
+.card .button--danger { background: #dc3545; }
+
+/* Секция Мой список */
+.wishlist {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px dashed #ccc;
+}
