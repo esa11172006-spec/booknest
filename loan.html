@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Выдача книги — BookNest</title>
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/components.css">
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <a href="index.html">BookNest</a>
-    <nav aria-label="Основная навигация">
+    <nav class="site-nav" aria-label="Основная навигация">
       <ul>
         <li><a href="index.html">Каталог</a></li>
         <li><a href="loan.html" aria-current="page">Выдача</a></li>
@@ -16,10 +20,10 @@
     </nav>
   </header>
 
-  <main>
+  <main class="main-content">
     <h1>Оформление выдачи книги</h1>
 
-    <form action="loan.html" method="post">
+    <form class="app-form" action="loan.html" method="post">
       <fieldset>
         <legend>Читатель</legend>
         
@@ -63,12 +67,12 @@
         <label for="agree">Согласен с правилами библиотеки</label>
       </fieldset>
 
-      <button type="submit">Оформить выдачу</button>
-      <button type="reset">Очистить</button>
+      <button class="btn btn-primary" type="submit">Оформить выдачу</button>
+      <button class="btn btn-secondary" type="reset">Очистить</button>
     </form>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <p>© 2024 BookNest — книжный клуб университета</p>
   </footer>
 </body>

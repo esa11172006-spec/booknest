@@ -1,68 +1,75 @@
-import { books } from '../data/books.js';
-
-export function render({ visibleBooks, state }) {
+export function render(state) {
   const grid = document.querySelector('.catalog-grid');
   const counter = document.querySelector('.catalog-counter');
-  const empty = document.querySelector('.empty-state');
-  
-  // 1. Заполняем жанры в селект (один раз)
-  const genreSelect = document.querySelector('select[name="genre"]');
-  if (genreSelect && genreSelect.options.length <= 1) {
-    import('../data/books.js').then(({ genres }) => {
-      genres.forEach(g => {
-        const opt = document.createElement('option');
-        opt.value = g;
-        opt.textContent = g;
-        genreSelect.append(opt);
-      });
-    });
-  }
-
-  // 2. Очищаем сетки
-  if (grid) grid.replaceChildren();
   const wishlistGrid = document.querySelector('.wishlist-grid');
-  if (wishlistGrid) wishlistGrid.replaceChildren();
+  const wishlistCounter = document.querySelector('.wishlist-counter');
+  const pagination = document.querySelector('.pagination');
 
-  // 3. Обновляем счетчики
-  if (counter) counter.textContent = `Найдено книг: ${visibleBooks.length}`;
-  const headerCounter = document.querySelector('.wishlist-counter');
-  if (headerCounter) headerCounter.textContent = state.wishlist.length;
+  // Элементы состояний
+  const loadingEl = document.querySelector('.loading-state');
+  const emptyEl = document.querySelector('.empty-state');
+  const errorEl = document.querySelector('.error-state');
+  const errorText = document.querySelector('.error-text');
 
-  // 4. Пустое состояние для каталога
-  if (empty) empty.hidden = visibleBooks.length !== 0;
-  if (grid) grid.hidden = visibleBooks.length === 0;
+  // Скрываем ВСЕ состояния (ровно одно покажем ниже)
+  loadingEl.hidden = true;
+  emptyEl.hidden = true;
+  errorEl.hidden = true;
+  grid.hidden = true;
+  pagination.hidden = true;
 
-  // 5. Рендерим каталог
-  if (grid) {
-    visibleBooks.forEach(book => {
-      const card = createCard(book, state);
-      grid.append(card);
+  // 1. СОСТОЯНИЕ: ЗАГРУЗКА
+  if (state.status === 'loading') {
+    loadingEl.hidden = false;
+  } 
+  // 2. СОСТОЯНИЕ: ОШИБКА
+  else if (state.status === 'error') {
+    errorEl.hidden = false;
+    if (state.errorStatus === 0) errorText.textContent = 'Нет подключения к интернету.';
+    else if (state.errorStatus >= 400 && state.errorStatus < 500) errorText.textContent = 'Ошибка в запросе (4xx). Проверьте ввод.';
+    else errorText.textContent = 'Ошибка на сервере (5xx). Попробуйте позже.';
+  } 
+  // 3. СОСТОЯНИЕ: ПУСТО
+  else if (state.status === 'empty') {
+    emptyEl.hidden = false;
+  } 
+  // 4. СОСТОЯНИЕ: УСПЕХ
+  else if (state.status === 'success') {
+    grid.hidden = false;
+    pagination.hidden = false;
+    
+    // Рендер карточек
+    grid.replaceChildren();
+    state.books.forEach(book => {
+      grid.append(createCard(book, state));
     });
+
+    // Пагинация
+    document.querySelector('.page-info').textContent = `Стр. ${state.page} из ${state.totalPages}`;
+    document.querySelector('.prev-btn').disabled = state.page <= 1;
+    document.querySelector('.next-btn').disabled = state.page >= state.totalPages;
   }
 
-  // 6. Рендерим "Мой список"
-  if (wishlistGrid) {
-    const wishlistBooks = state.wishlist.map(id => books.find(b => b.id === id)).filter(Boolean);
-    
-    if (wishlistBooks.length === 0) {
-      const p = document.createElement('p');
-      p.textContent = 'Список пуст. Добавьте книги из каталога.';
-      wishlistGrid.append(p);
-    } else {
-      wishlistBooks.forEach(book => {
-        const card = createCard(book, state, true);
-        wishlistGrid.append(card);
-      });
-    }
+  // Счетчики и Мой список
+  counter.textContent = `Найдено книг: ${state.totalFound || 0}`;
+  wishlistCounter.textContent = state.wishlist.length;
+
+  wishlistGrid.replaceChildren();
+  if (state.wishlist.length === 0) {
+    const p = document.createElement('p');
+    p.textContent = 'Список пуст.';
+    wishlistGrid.append(p);
+  } else {
+    state.wishlist.forEach(book => {
+      wishlistGrid.append(createCard(book, state, true));
+    });
   }
 }
 
-// Вспомогательная функция для создания карточки
 function createCard(book, state, isWishlistView = false) {
   const card = document.createElement('article');
   card.className = 'card';
-  card.dataset.id = book.id;
-
+  
   const title = document.createElement('h3');
   title.className = 'card__title';
   title.textContent = book.title;
@@ -73,24 +80,30 @@ function createCard(book, state, isWishlistView = false) {
 
   const meta = document.createElement('p');
   meta.className = 'card__meta';
-  meta.textContent = `${book.year} г. | ${book.genre} | ★ ${book.rating}`;
+  meta.textContent = `${book.year} г. | ★ ${book.rating}`;
 
   const btn = document.createElement('button');
   btn.className = 'button';
   btn.dataset.action = 'toggle-wishlist';
   btn.dataset.id = book.id;
   
-  const inWishlist = state.wishlist.includes(book.id);
-  btn.setAttribute('aria-pressed', inWishlist ? 'true' : 'false');
+  const inWishlist = state.wishlist.some(b => b.id === book.id);
+  btn.setAttribute('aria-pressed', String(inWishlist));
   
   if (isWishlistView) {
-    btn.textContent = 'Удалить из списка';
+    btn.textContent = 'Удалить';
     btn.classList.add('button--danger');
   } else {
     btn.textContent = inWishlist ? 'В списке' : 'Хочу прочитать';
     if (inWishlist) btn.classList.add('button--active');
   }
 
-  card.append(title, author, meta, btn);
+  // Ссылка на детали (передаем id через URL)
+  const detailsLink = document.createElement('a');
+  detailsLink.href = `book.html?id=${encodeURIComponent(book.id)}`;
+  detailsLink.textContent = 'Подробнее';
+  detailsLink.className = 'details-link';
+  
+  card.append(title, author, meta, detailsLink, btn);
   return card;
 }

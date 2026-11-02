@@ -1,0 +1,19 @@
+{
+  "info": { "name": "BookNest API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "item": [
+    {
+      "name": "Search Books",
+      "request": {
+        "method": "GET",
+        "url": "https://openlibrary.org/search.json?q=javascript&page=1&limit=20"
+      }
+    },
+    {
+      "name": "Book Details",
+      "request": {
+        "method": "GET",
+        "url": "https://openlibrary.org/works/OL123W.json"
+      }
+    }
+  ]
+}

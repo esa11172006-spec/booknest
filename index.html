@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BookNest - Каталог</title>
-  
-  <!-- Твои стили из ЛР2 -->
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/layout.css">
@@ -16,7 +14,7 @@
     <div class="header__inner">
       <a href="index.html" class="logo">BookNest</a>
       <nav class="nav">
-        <a href="#catalog">Каталог</a>
+        <a href="index.html">Каталог</a>
         <a href="#wishlist">Мой список: <span class="wishlist-counter">0</span></a>
       </nav>
     </div>
@@ -25,24 +23,19 @@
   <main class="main">
     <h1>Каталог книг</h1>
 
-    <!-- ФОРМА ФИЛЬТРОВ -->
     <form class="filters-form">
       <fieldset>
         <legend>Фильтры</legend>
-        
         <div class="form-group">
-          <label for="search">Поиск</label>
-          <input type="search" id="search" name="query" placeholder="Название или автор">
+          <label for="search">Поиск (мин. 3 символа)</label>
+          <input type="search" id="search" name="query" placeholder="Название или автор" autocomplete="off">
         </div>
-
         <div class="form-group">
           <label for="genre">Жанр</label>
           <select id="genre" name="genre">
             <option value="">Все жанры</option>
-            <!-- Опции подтянутся из JS -->
           </select>
         </div>
-
         <div class="form-group">
           <label for="sortBy">Сортировка</label>
           <select id="sortBy" name="sortBy">
@@ -51,41 +44,45 @@
             <option value="rating">По рейтингу</option>
           </select>
         </div>
-
         <div class="form-group">
-          <label>
-            <input type="checkbox" name="onlyAvailable"> Только доступные
-          </label>
+          <label><input type="checkbox" name="onlyAvailable"> Только доступные</label>
         </div>
-
         <div class="form-actions">
-          <button type="submit" class="button">Применить</button>
           <button type="button" class="button reset-btn">Сбросить</button>
         </div>
       </fieldset>
     </form>
 
-    <!-- СЧЕТЧИК -->
     <h2 class="catalog-counter">Найдено книг: 0</h2>
 
-    <!-- СЕТКА ДЛЯ КАРТОЧЕК -->
+    <!-- ЧЕТЫРЕ СОСТОЯНИЯ ИНТЕРФЕЙСА -->
+    <div class="state-container">
+      <div class="loading-state" hidden>Загрузка данных...</div>
+      <div class="empty-state" hidden>По вашему запросу ничего не найдено.</div>
+      <div class="error-state" hidden>
+        <p class="error-text">Произошла ошибка.</p>
+        <button class="button retry-btn">Повторить</button>
+      </div>
+    </div>
+
+    <!-- СЕТКА -->
     <div class="catalog-grid" id="catalog"></div>
 
-    <!-- ПУСТОЕ СОСТОЯНИЕ -->
-    <div class="empty-state" hidden>Ничего не найдено. Попробуйте изменить фильтры.</div>
+    <!-- ПАГИНАЦИЯ -->
+    <div class="pagination" hidden>
+      <button class="button prev-btn" disabled>Назад</button>
+      <span class="page-info">Стр. 1</span>
+      <button class="button next-btn" disabled>Вперед</button>
+    </div>
 
-    <!-- МОЙ СПИСОК (WISHLIST) -->
+    <!-- МОЙ СПИСОК -->
     <section class="wishlist" id="wishlist">
       <h2>Мой список</h2>
       <div class="wishlist-grid catalog-grid"></div>
     </section>
   </main>
 
-  <footer class="footer">
-    <p>© 2024 BookNest — книжный клуб университета</p>
-  </footer>
-
-  <!-- ПОДКЛЮЧЕНИЕ СКРИПТА -->
+  <footer class="footer"><p>© 2024 BookNest</p></footer>
   <script type="module" src="main.js"></script>
 </body>
 </html>
